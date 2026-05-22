@@ -1,103 +1,582 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شؤون الهلال الأحمر | لوحة التحكم المتكاملة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>شؤون الهلال الأحمر | لوحة التحكم</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap"
+        rel="stylesheet" />
+
     <style>
         :root {
-            --bg-deep-black: #08080a;
-            --bg-sidebar: #0f0f12;
-            --bg-card: #141417;
-            --bg-input: #1c1c24;
-            --primary-red: #ff384a;
-            --primary-hover: #e02f40;
-            --dark-red: #3d1418;
-            --text-white: #ffffff;
-            --text-muted: #808191;
-            --border-color: #24242e;
-            --neon-glow: 0 0 15px rgba(255, 56, 74, 0.25);
+            --bg: #08080a;
+            --sidebar: #0f0f12;
+            --card: #141417;
+            --input: #1b1b22;
+            --red: #ff384a;
+            --red-hover: #e42f41;
+            --text: #ffffff;
+            --muted: #8c8c98;
+            --border: #252530;
         }
 
-        /* تصحيح شامل لضمان ظهور الصفحة وعدم اختفائها */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Tajawal', sans-serif;
+            box-sizing: border-box;
+            font-family: "Tajawal", sans-serif;
         }
 
         body {
-            background-color: var(--bg-deep-black);
-            color: var(--text-white);
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
-            padding: 0;
-            margin: 0;
+            overflow-x: hidden;
         }
 
-        /* حاوية التقسيم الثلاثي الآمنة والمجربة */
         .wrapper {
-            display: table;
-            width: 100%;
-            table-layout: fixed;
+            display: flex;
             min-height: 100vh;
         }
 
-        /* تحويل الأعمدة إلى خلايا جدول لضمان العرض التلقائي وعدم حدوث شاشة سوداء */
-        .sidebar-right-col {
-            display: table-cell;
-            width: 240px;
-            background-color: var(--bg-sidebar);
-            border-left: 1px solid var(--border-color);
-            vertical-align: top;
-            padding: 20px 15px;
+        .sidebar-right {
+            width: 250px;
+            background: var(--sidebar);
+            border-left: 1px solid var(--border);
+            padding: 25px 15px;
         }
 
-        .main-content-col {
-            display: table-cell;
-            vertical-align: top;
+        .sidebar-left {
+            width: 300px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--border);
+            padding: 20px;
+        }
+
+        .main {
+            flex: 1;
             padding: 25px;
         }
 
-        .sidebar-left-col {
-            display: table-cell;
-            width: 280px;
-            background-color: var(--bg-sidebar);
-            border-right: 1px solid var(--border-color);
-            vertical-align: top;
-            padding: 20px 15px;
+        .brand {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 35px;
+            color: var(--text);
         }
 
-        /* --- تنسيقات القائمة اليمنى --- */
-        .sidebar-brand {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 30px;
-            color: var(--text-white);
+        .brand span {
+            color: var(--red);
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu li {
+            margin-bottom: 10px;
+        }
+
+        .menu a {
+            display: block;
+            text-decoration: none;
+            color: var(--muted);
+            background: transparent;
+            padding: 13px 15px;
+            border-radius: 12px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .menu a:hover,
+        .menu .active a {
+            background: rgba(255, 56, 74, 0.1);
+            color: var(--red);
+        }
+
+        .topbar {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 18px 20px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .search {
+            background: var(--input);
+            border-radius: 10px;
+            padding: 10px 15px;
+            width: 280px;
+        }
+
+        .search input {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: white;
+            font-size: 14px;
+        }
+
+        .banner {
+            background: linear-gradient(135deg, #221116, #141417);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 35px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 25px rgba(255, 56, 74, 0.15);
+        }
+
+        .banner h1 {
+            font-size: 34px;
+            margin: 10px 0;
+        }
+
+        .banner p {
+            color: var(--muted);
+        }
+
+        .moon {
+            font-size: 70px;
+            color: var(--red);
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        .card-header h2 {
+            font-size: 22px;
+        }
+
+        .card-header span {
+            color: var(--red);
+            font-size: 13px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .full {
+            grid-column: span 2;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
             gap: 8px;
         }
-        .sidebar-brand .logo {
-            color: var(--primary-red);
-            filter: drop-shadow(0 0 5px var(--primary-red));
-        }
-        .menu-list { list-style: none; }
-        .menu-item { margin-bottom: 8px; }
-        .menu-item a {
-            display: block;
-            padding: 12px 15px;
-            color: var(--text-muted);
-            text-decoration: none;
-            border-radius: 8px;
+
+        .field label {
             font-size: 14px;
+        }
+
+        .field input,
+        .field select {
+            background: var(--input);
+            border: 1px solid var(--border);
+            color: white;
+            border-radius: 10px;
+            padding: 14px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--red);
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .checkbox input {
+            accent-color: var(--red);
+            width: 18px;
+            height: 18px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn-red {
+            flex: 2;
+            background: var(--red);
+            border: none;
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
             transition: 0.3s;
         }
-        .menu-item.active a {
-            background-color: rgba(255, 56, 74, 0.1);
-            color: var(--primary-red);
-            font-weight: 700;
+
+        .btn-red:hover {
+            background: var(--red-hover);
         }
-        .menu-item a:hover:not(.active) {
-            background
+
+        .btn-dark {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .btn-dark:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .result {
+            margin-top: 25px;
+            background: #0d0d11;
+            border: 1px dashed var(--red);
+            border-radius: 12px;
+            padding: 15px;
+            display: none;
+        }
+
+        .result pre {
+            white-space: pre-wrap;
+            line-height: 1.8;
+            color: #ffb347;
+            font-size: 14px;
+        }
+
+        .profile {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #23232d;
+            margin: auto;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid var(--red);
+            font-size: 28px;
+        }
+
+        .online {
+            color: #00e676;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .panel-title {
+            font-size: 14px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .status {
+            color: orange;
+            background: rgba(255, 166, 0, 0.1);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 11px;
+        }
+
+        @media(max-width:1100px) {
+            .sidebar-left {
+                display: none;
+            }
+        }
+
+        @media(max-width:850px) {
+            .wrapper {
+                flex-direction: column;
+            }
+
+            .sidebar-right {
+                width: 100%;
+                border: none;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: span 1;
+            }
+
+            .banner {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .search {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <div class="sidebar-right">
+
+            <div class="brand">
+                🌙 <span>شؤون الهلال الأحمر</span>
+            </div>
+
+            <ul class="menu">
+                <li><a href="#">🏠 الرئيسية</a></li>
+                <li><a href="#">📅 طلب إجازة داخلية</a></li>
+                <li class="active"><a href="#">✈️ طلب إجازة خارجية</a></li>
+                <li><a href="#">📂 الإجازات الداخلية</a></li>
+                <li><a href="#">🌍 الإجازات الخارجية</a></li>
+                <li><a href="#">❌ قرارات الفصل</a></li>
+                <li><a href="#">🚪 الاستقالات</a></li>
+                <li><a href="#">📄 نماذج الانتداب</a></li>
+                <li><a href="#">👤 طلب رول</a></li>
+            </ul>
+
+        </div>
+
+        <div class="main">
+
+            <div class="topbar">
+
+                <div class="search">
+                    <input type="text" placeholder="🔍 بحث..." />
+                </div>
+
+                <div>🔔 🌙</div>
+
+            </div>
+
+            <div class="banner">
+
+                <div>
+                    <p>مرحباً بك في الأنظمة الإلكترونية</p>
+                    <h1>شؤون الهلال الأحمر</h1>
+                    <p>يمكنك تعبئة نموذج الإجازة مباشرة.</p>
+                </div>
+
+                <div class="moon">🌙</div>
+
+            </div>
+
+            <div class="card">
+
+                <div class="card-header">
+                    <h2>✈️ نموذج إجازة خارجية</h2>
+                    <span>تعبئة سريعة</span>
+                </div>
+
+                <div class="grid">
+
+                    <div class="field full">
+                        <label>نوع الطلب</label>
+
+                        <select id="leaveType">
+                            <option>طلب إجازة خارجية</option>
+                            <option>العودة من إجازة خارجية</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>ID المسعف</label>
+                        <input type="text" id="medicId">
+                    </div>
+
+                    <div class="field">
+                        <label>إعتماد</label>
+                        <input type="text" id="approverId">
+                    </div>
+
+                    <div class="field full">
+                        <label>عدد الأيام</label>
+                        <input type="number" id="daysCount">
+                    </div>
+
+                    <div class="field">
+                        <label>من تاريخ</label>
+                        <input type="date" id="startDate">
+                    </div>
+
+                    <div class="field">
+                        <label>إلى تاريخ</label>
+                        <input type="date" id="endDate">
+                    </div>
+
+                    <div class="checkbox full">
+                        <input type="checkbox" id="requestRole">
+                        <label>طلب رول تلقائياً</label>
+                    </div>
+
+                </div>
+
+                <div class="actions">
+
+                    <button class="btn-red" onclick="generateOutput()">
+                        🖨️ إصدار الصادر
+                    </button>
+
+                    <button class="btn-dark" onclick="copyOutput()">
+                        📋 نسخ مباشر
+                    </button>
+
+                </div>
+
+                <div class="result" id="resultBox">
+                    <pre id="resultText"></pre>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="sidebar-left">
+
+            <div class="profile">
+
+                <div class="avatar">
+                    👤
+                </div>
+
+                <h3>مدير النظام</h3>
+
+                <div style="color: var(--red); font-size:13px; margin-top:5px;">
+                    شؤون الموظفين
+                </div>
+
+                <div class="online">
+                    ● متصل الآن
+                </div>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    آخر المعاملات
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        إجازة خارجية
+                    </div>
+
+                    <span class="status">
+                        قيد الانتظار
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        window.onload = () => {
+
+            const today = new Date().toISOString().split('T')[0];
+
+            document.getElementById('startDate').value = today;
+            document.getElementById('endDate').value = today;
+
+        }
+
+        function buildText() {
+
+            const leaveType = document.getElementById('leaveType').value;
+            const medicId = document.getElementById('medicId').value;
+            const approverId = document.getElementById('approverId').value;
+            const daysCount = document.getElementById('daysCount').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const requestRole = document.getElementById('requestRole').checked ? "نعم" : "لا";
+
+            return `
+📋 ${leaveType}
+
+🆔 ID المسعف: ${medicId}
+✍️ الإعتماد: ${approverId}
+📅 عدد الأيام: ${daysCount}
+
+🟢 من: ${startDate}
+🔴 إلى: ${endDate}
+
+🔔 طلب رول: ${requestRole}
+`;
+
+        }
+
+        function generateOutput() {
+
+            document.getElementById('resultBox').style.display = 'block';
+
+            document.getElementById('resultText').innerText = buildText();
+
+        }
+
+        function copyOutput() {
+
+            navigator.clipboard.writeText(buildText());
+
+            alert('تم النسخ بنجاح');
+
+        }
+
+    </script>
+
+</body>
+
+</html>
