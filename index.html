@@ -3,76 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شؤون الهلال الأحمر</title>
+    <title>إجازة خارجية | شؤون الهلال الأحمر</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* درجات الأسود والأحمر الدقيقة من الصورة */
-            --bg-deep-black: #08080a;
-            --bg-sidebar: #0f0f12;
-            --bg-card: #141417;
+            --bg-main: #09090b;
+            --bg-sidebar: #111115;
+            --bg-card: #151519;
+            --bg-input: #1d1d25;
             --primary-red: #ff384a;
-            --dark-red: #3d1418;
-            --text-white: #ffffff;
-            --text-muted: #808191;
-            --border-color: #24242e;
-            /* تأثير توهج الأحمر */
-            --neon-glow: 0 0 12px rgba(255, 56, 74, 0.4);
-            /* خطوط Tajawal */
-            font-family: 'Tajawal', sans-serif;
+            --primary-hover: #e02f40;
+            --border-color: #23232c;
+            --text-main: #ffffff;
+            --text-muted: #7f808c;
+            --neon-glow: 0 0 15px rgba(255, 56, 74, 0.15);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Tajawal', sans-serif;
         }
 
         body {
-            background-color: var(--bg-deep-black);
-            color: var(--text-white);
+            background-color: var(--bg-main);
+            color: var(--text-main);
             display: flex;
             min-height: 100vh;
-            overflow: hidden; /* لمنع السكرول المزدوج */
+            overflow: hidden;
         }
 
-        /* --- القائمة الجانبية (Sidebar) --- */
-        .sidebar {
+        /* --- 1. القائمة الجانبية اليمنى --- */
+        .sidebar-right {
             width: 250px;
             background-color: var(--bg-sidebar);
             border-left: 1px solid var(--border-color);
-            padding: 20px 10px;
+            padding: 25px 15px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .sidebar-brand {
+        .brand-section {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-size: 16px;
             font-weight: 700;
-            color: var(--text-white);
-            font-size: 17px;
             margin-bottom: 35px;
-            padding: 0 10px;
+            padding-right: 5px;
         }
 
-        .sidebar-brand span.logo {
-            font-size: 22px;
+        .brand-icon {
+            font-size: 24px;
             color: var(--primary-red);
-            filter: drop-shadow(0 0 5px var(--primary-red));
+            filter: drop-shadow(0 0 4px var(--primary-red));
         }
 
-        .menu-list {
+        .menu-links {
             list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        .menu-item {
-            margin-bottom: 5px;
-        }
-
-        .menu-item a {
+        .menu-links li a {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -81,22 +77,18 @@
             text-decoration: none;
             border-radius: 8px;
             font-size: 14px;
-            transition: 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        .menu-item.active a {
+        .menu-links li.active a {
             background-color: rgba(255, 56, 74, 0.08);
             color: var(--primary-red);
             font-weight: 500;
         }
 
-        .menu-item a:hover:not(.active) {
-            background-color: rgba(255, 255, 255, 0.03);
-            color: var(--text-white);
-        }
-
-        .menu-icon {
-            font-size: 18px;
+        .menu-links li a:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.02);
+            color: var(--text-main);
         }
 
         .sidebar-footer {
@@ -104,4 +96,141 @@
             padding-top: 15px;
         }
 
-        /* --- مح
+        /* --- 2. منطقة العمل الوسطى للنموذج --- */
+        .center-content {
+            flex: 1;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        /* شريط التصفح العلوي */
+        .top-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--bg-card);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: var(--bg-input);
+            padding: 8px 15px;
+            border-radius: 8px;
+            width: 280px;
+            border: 1px solid transparent;
+        }
+
+        .search-container input {
+            background: none;
+            border: none;
+            color: white;
+            outline: none;
+            margin-right: 8px;
+            font-size: 13px;
+            width: 100%;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        /* كارت النموذج الرئيسي المستوحى من الهوية البصرية */
+        .form-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--neon-glow);
+            position: relative;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary-red);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .form-card h2 {
+            font-size: 22px;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* تنسيق الحقول */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .full-row {
+            grid-column: span 2;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .field-group label {
+            font-size: 13px;
+            color: var(--text-white);
+            font-weight: 500;
+        }
+
+        .field-group input, .field-group select {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            border-radius: 8px;
+            color: var(--text-main);
+            outline: none;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            width: 100%;
+        }
+
+        .field-group input:focus, .field-group select:focus {
+            border-color: var(--primary-red);
+        }
+
+        .info-lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* حقل الرول الاختياري */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-container input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary
