@@ -3,35 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إجازة خارجية | شؤون الهلال الأحمر</title>
+    <title>شؤون الهلال الأحمر | نموذج الإجازات</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #09090b;
-            --bg-sidebar: #111115;
-            --bg-card: #151519;
-            --bg-input: #1d1d25;
+            /* درجات الألوان الدقيقة المستخرجة من تصميم لوحة التحكم المظلمة */
+            --bg-deep-black: #08080a;
+            --bg-sidebar: #0f0f12;
+            --bg-card: #141417;
+            --bg-input: #1c1c24;
             --primary-red: #ff384a;
             --primary-hover: #e02f40;
-            --border-color: #23232c;
-            --text-main: #ffffff;
-            --text-muted: #7f808c;
-            --neon-glow: 0 0 15px rgba(255, 56, 74, 0.15);
+            --dark-red: #3d1418;
+            --text-white: #ffffff;
+            --text-muted: #808191;
+            --border-color: #24242e;
+            /* توهج النيون الأحمر المحيط بالعناصر */
+            --neon-glow: 0 0 15px rgba(255, 56, 74, 0.25);
+            font-family: 'Tajawal', sans-serif;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Tajawal', sans-serif;
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
+            background-color: var(--bg-deep-black);
+            color: var(--text-white);
             display: flex;
             min-height: 100vh;
-            overflow: hidden;
+            overflow: hidden; /* يمنع السكرول المزدوج للحفاظ على أبعاد اللوحة */
         }
 
         /* --- 1. القائمة الجانبية اليمنى --- */
@@ -39,36 +42,38 @@
             width: 250px;
             background-color: var(--bg-sidebar);
             border-left: 1px solid var(--border-color);
-            padding: 25px 15px;
+            padding: 20px 10px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .brand-section {
+        .sidebar-brand {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 16px;
+            gap: 10px;
             font-weight: 700;
+            color: var(--text-white);
+            font-size: 17px;
             margin-bottom: 35px;
-            padding-right: 5px;
+            padding: 0 10px;
         }
 
-        .brand-icon {
-            font-size: 24px;
+        .sidebar-brand span.logo {
+            font-size: 22px;
             color: var(--primary-red);
-            filter: drop-shadow(0 0 4px var(--primary-red));
+            filter: drop-shadow(0 0 5px var(--primary-red));
         }
 
-        .menu-links {
+        .menu-list {
             list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
         }
 
-        .menu-links li a {
+        .menu-item {
+            margin-bottom: 5px;
+        }
+
+        .menu-item a {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -77,18 +82,18 @@
             text-decoration: none;
             border-radius: 8px;
             font-size: 14px;
-            transition: all 0.3s ease;
+            transition: 0.3s ease;
         }
 
-        .menu-links li.active a {
+        .menu-item.active a {
             background-color: rgba(255, 56, 74, 0.08);
             color: var(--primary-red);
             font-weight: 500;
         }
 
-        .menu-links li a:hover:not(.active) {
-            background-color: rgba(255, 255, 255, 0.02);
-            color: var(--text-main);
+        .menu-item a:hover:not(.active) {
+            background-color: rgba(255, 255, 255, 0.03);
+            color: var(--text-white);
         }
 
         .sidebar-footer {
@@ -96,38 +101,37 @@
             padding-top: 15px;
         }
 
-        /* --- 2. منطقة العمل الوسطى للنموذج --- */
-        .center-content {
+        /* --- 2. المحتوى الرئيسي الأوسط (لوحة التحكم مع المدخلات) --- */
+        .main-content {
             flex: 1;
-            padding: 25px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
             overflow-y: auto;
         }
 
-        /* شريط التصفح العلوي */
-        .top-navigation {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* شريط البحث العلوي التجميلي */
+        .top-bar {
             background-color: var(--bg-card);
             padding: 12px 20px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .search-container {
+        .search-box {
             display: flex;
             align-items: center;
             background: var(--bg-input);
             padding: 8px 15px;
             border-radius: 8px;
             width: 280px;
-            border: 1px solid transparent;
         }
 
-        .search-container input {
+        .search-box input {
             background: none;
             border: none;
             color: white;
@@ -137,46 +141,69 @@
             width: 100%;
         }
 
-        .top-actions {
+        .top-icons {
             display: flex;
             align-items: center;
             gap: 15px;
             color: var(--text-muted);
-            cursor: pointer;
         }
 
-        /* كارت النموذج الرئيسي المستوحى من الهوية البصرية */
-        .form-card {
-            background-color: var(--bg-card);
+        /* البانر الترحيبي العريض والمدمج به حقول المدخلات */
+        .welcome-banner {
+            background: radial-gradient(circle at left, var(--dark-red) 0%, var(--bg-card) 100%);
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             box-shadow: var(--neon-glow);
             position: relative;
         }
 
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+        .welcome-text p { color: var(--text-muted); font-size: 13px; }
+        .welcome-text h2 { font-size: 26px; margin: 5px 0; }
+        .welcome-text .sub-text { font-size: 13px; margin-top: 8px; color: var(--text-muted); }
+
+        .crescent-moon {
+            font-size: 70px;
             color: var(--primary-red);
-            text-decoration: none;
-            font-size: 14px;
-            margin-bottom: 20px;
-            font-weight: 500;
+            filter: drop-shadow(0 0 15px var(--primary-red));
         }
 
-        .form-card h2 {
-            font-size: 22px;
-            margin-bottom: 25px;
-            padding-bottom: 12px;
+        /* كارت المدخلات الكبير (نفس شكل كروت الفيجما ولكن للحقول) */
+        .form-container-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-title-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .form-title-area h3 {
+            font-size: 18px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        /* تنسيق الحقول */
+        .back-link {
+            color: var(--primary-red);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* شبكة توزيع الحقول المتناسقة */
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -197,6 +224,9 @@
             font-size: 13px;
             color: var(--text-white);
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .field-group input, .field-group select {
@@ -204,15 +234,16 @@
             border: 1px solid var(--border-color);
             padding: 12px 15px;
             border-radius: 8px;
-            color: var(--text-main);
+            color: var(--text-white);
             outline: none;
             font-size: 14px;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
             width: 100%;
         }
 
         .field-group input:focus, .field-group select:focus {
             border-color: var(--primary-red);
+            box-shadow: 0 0 8px rgba(255, 56, 74, 0.2);
         }
 
         .info-lbl {
@@ -221,16 +252,99 @@
             margin-top: 2px;
         }
 
-        /* حقل الرول الاختياري */
         .checkbox-container {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-top: 10px;
+            margin-top: 5px;
             cursor: pointer;
+            font-size: 13px;
         }
 
         .checkbox-container input {
             width: 18px;
             height: 18px;
-            accent-color: var(--primary
+            accent-color: var(--primary-red);
+            cursor: pointer;
+        }
+
+        /* أزرار التشغيل المتوهجة (Neon Buttons) */
+        .action-container {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .btn-submit {
+            flex: 2;
+            background-color: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 56, 74, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(255, 56, 74, 0.4);
+        }
+
+        .btn-copy-direct {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-white);
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-copy-direct:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-color: var(--text-muted);
+        }
+
+        /* ساحة طباعة نص الصادر والنتيجة التلقائية */
+        .result-box {
+            margin-top: 25px;
+            background-color: #0d0d11;
+            border: 1px dashed var(--primary-red);
+            border-radius: 8px;
+            padding: 15px;
+            display: none;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .result-code {
+            white-space: pre-wrap;
+            color: #ffaa00;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* --- 3. اللوحة الجانبية اليسارية (بيانات الإدارة والطلبات النشطة) --- */
+        .sidebar-left {
+            width: 280px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+        }
