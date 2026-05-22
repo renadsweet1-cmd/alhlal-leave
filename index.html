@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>شؤون الهلال الأحمر | نموذج الإجازات</title>
+    <title>شؤون الهلال الأحمر | لوحة التحكم المتكاملة</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* درجات الألوان الدقيقة المستخرجة من تصميم لوحة التحكم المظلمة */
             --bg-deep-black: #08080a;
             --bg-sidebar: #0f0f12;
             --bg-card: #141417;
@@ -18,35 +17,39 @@
             --text-white: #ffffff;
             --text-muted: #808191;
             --border-color: #24242e;
-            /* توهج النيون الأحمر المحيط بالعناصر */
             --neon-glow: 0 0 15px rgba(255, 56, 74, 0.25);
-            font-family: 'Tajawal', sans-serif;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Tajawal', sans-serif;
         }
 
         body {
             background-color: var(--bg-deep-black);
             color: var(--text-white);
-            display: flex;
             min-height: 100vh;
-            overflow-y: auto; /* السماح بالتمرير لمنع اختفاء الشاشة */
+            display: block; /* إلغاء الـ flex المسبب للمشكلة */
+        }
+
+        /* حاوية التصميم الرئيسية المقسمة لثلاثة أعمدة */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr 280px;
+            min-height: 100vh;
+            width: 100%;
         }
 
         /* --- 1. القائمة الجانبية اليمنى --- */
         .sidebar-right {
-            width: 250px;
             background-color: var(--bg-sidebar);
             border-left: 1px solid var(--border-color);
-            padding: 20px 10px;
+            padding: 25px 15px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            flex-shrink: 0;
         }
 
         .sidebar-brand {
@@ -54,13 +57,11 @@
             align-items: center;
             gap: 10px;
             font-weight: 700;
-            color: var(--text-white);
             font-size: 17px;
             margin-bottom: 35px;
-            padding: 0 10px;
         }
 
-        .sidebar-brand span.logo {
+        .sidebar-brand .logo {
             font-size: 22px;
             color: var(--primary-red);
             filter: drop-shadow(0 0 5px var(--primary-red));
@@ -71,7 +72,7 @@
         }
 
         .menu-item {
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
 
         .menu-item a {
@@ -93,88 +94,4 @@
         }
 
         .menu-item a:hover:not(.active) {
-            background-color: rgba(255, 255, 255, 0.03);
-            color: var(--text-white);
-        }
-
-        .sidebar-footer {
-            border-top: 1px solid var(--border-color);
-            padding-top: 15px;
-        }
-
-        /* --- 2. المحتوى الرئيسي الأوسط (لوحة التحكم مع المدخلات) --- */
-        .main-content {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        /* شريط البحث العلوي التجميلي */
-        .top-bar {
-            background-color: var(--bg-card);
-            padding: 12px 20px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .search-box {
-            display: flex;
-            align-items: center;
-            background: var(--bg-input);
-            padding: 8px 15px;
-            border-radius: 8px;
-            width: 280px;
-        }
-
-        .search-box input {
-            background: none;
-            border: none;
-            color: white;
-            outline: none;
-            margin-right: 8px;
-            font-size: 13px;
-            width: 100%;
-        }
-
-        .top-icons {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: var(--text-muted);
-        }
-
-        /* البانر الترحيبي العريض والمدمج به حقول المدخلات */
-        .welcome-banner {
-            background: radial-gradient(circle at left, var(--dark-red) 0%, var(--bg-card) 100%);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--neon-glow);
-            position: relative;
-        }
-
-        .welcome-text p { color: var(--text-muted); font-size: 13px; }
-        .welcome-text h2 { font-size: 26px; margin: 5px 0; }
-        .welcome-text .sub-text { font-size: 13px; margin-top: 8px; color: var(--text-muted); }
-
-        .crescent-moon {
-            font-size: 70px;
-            color: var(--primary-red);
-            filter: drop-shadow(0 0 15px var(--primary-red));
-        }
-
-        /* كارت المدخلات الكبير (نفس شكل كروت الفيجما ولكن للحقول) */
-        .form-container-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 4px 2
+            background-color
