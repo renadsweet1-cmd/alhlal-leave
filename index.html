@@ -196,7 +196,7 @@
 
         footer {
             text-align: center;
-            margin-top: 4px;
+            margin-top: 25px;
             font-size: 12px;
             color: #777;
         }
@@ -237,18 +237,18 @@
 
         <div class="form-group">
             <label>📅 عدد الأيام</label>
-            <input type="number" id="daysCount" min="1" placeholder="مثال: 5" oninput="calculateEndDate()">
+            <input type="number" id="daysCount" min="1" placeholder="مثال: 5">
         </div>
 
         <div class="date-row">
             <div class="form-group">
                 <label>🟢 من تاريخ</label>
-                <input type="date" id="startDate" onchange="calculateEndDate()">
+                <input type="date" id="startDate">
                 <div class="info-text">توقيت السعودية</div>
             </div>
             <div class="form-group">
                 <label>🔴 إلى تاريخ</label>
-                <input type="text" id="endDate" readonly placeholder="يُحسب تلقائياً">
+                <input type="date" id="endDate">
             </div>
         </div>
 
@@ -271,19 +271,19 @@
         </div>
     </div>
 
-    <br>
     <footer>
-        © 2026 بوابة شؤون الهلال الأحمر — جميع الحقوق محفوظة لقطاع الهلال الأحمر التابع لمقاطعة العاذرية
+        © 2026 بوابة شؤون الهلال الأحمر — جميع الحقوق محفوظة لقطاع الهلال الأحمر التابع لـ Lana District
     </footer>
 
     <script>
-        // تعيين تاريخ اليوم كقيمة افتراضية لتاريخ البدء
+        // تعيين تاريخ اليوم كقيمة افتراضية لتاريخ البدء وتاريخ النهاية
         window.onload = function() {
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('startDate').value = today;
+            document.getElementById('endDate').value = today;
         }
 
-        // تبديل الوضع الداكن والفاتح
+        // دالة تبديل الوضع الداكن والفاتح
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             if (currentTheme === 'dark') {
@@ -293,28 +293,7 @@
             }
         }
 
-        // حساب تاريخ الانتهاء تلقائياً بناءً على عدد الأيام
-        function calculateEndDate() {
-            const startDateVal = document.getElementById('startDate').value;
-            const daysCount = parseInt(document.getElementById('daysCount').value);
-            const endDateInput = document.getElementById('endDate');
-
-            if (startDateVal && !isNaN(daysCount) && daysCount > 0) {
-                const startDate = new Date(startDateVal);
-                startDate.setDate(startDate.getDate() + daysCount);
-                
-                // تنسيق التاريخ الناتج YYYY-MM-DD
-                const yyyy = startDate.getFullYear();
-                const mm = String(startDate.getMonth() + 1).padStart(2, '0');
-                const dd = String(startDate.getDate()).padStart(2, '0');
-                
-                endDateInput.value = `${yyyy}-${mm}-${dd}`;
-            } else {
-                endDateInput.value = '';
-            }
-        }
-
-        // إنشاء النص النهائي
+        // دالة إنشاء النص النهائي للصادر
         function buildText() {
             const leaveType = document.getElementById('leaveType').value;
             const medicId = document.getElementById('medicId').value || '---';
@@ -327,4 +306,40 @@
             return `** نموذج: ${leaveType} **\n` +
                    `🆔 ID المسعف: ${medicId}\n` +
                    `✍️ إعتماد بواسطة: ${approverId}\n` +
-                   `📅 عدد الأيام: ${
+                   `📅 عدد الأيام: ${daysCount}\n` +
+                   `🟢 من تاريخ: ${startDate}\n` +
+                   `🔴 إلى تاريخ: ${endDate}\n` +
+                   `🔔 طلب رول: ${requestRole}`;
+        }
+
+        // عرض الصادر في الساحة المخصصة له
+        function generateOutput() {
+            const outputArea = document.getElementById('outputArea');
+            const outputText = document.getElementById('outputText');
+            
+            outputText.innerText = buildText();
+            outputArea.style.display = 'block';
+        }
+
+        // نسخ النص من ساحة العرض بعد إصدارها
+        function copyResultText() {
+            const text = document.getElementById('outputText').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('تم نسخ الصادر بنجاح!');
+            }).catch(err => {
+                alert('حدث خطأ أثناء النسخ، يرجى تحديث الصفحة والمحاولة مجدداً.');
+            });
+        }
+
+        // نسخ الصادر مباشرة دون الحاجة لعرضه أولاً
+        function copyOutputDirectly() {
+            const text = buildText();
+            navigator.clipboard.writeText(text).then(() => {
+                alert('تم نسخ الصادر مباشرة إلى الحافظة!');
+            }).catch(err => {
+                alert('حدث خطأ أثناء النسخ، يرجى تحديث الصفحة والمحاولة مجدداً.');
+            });
+        }
+    </script>
+</body>
+</html>
